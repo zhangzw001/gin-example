@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -32,7 +33,11 @@ func main() {
 		file,_ := c.FormFile("file")
 		log.Println(file.Filename)
 		// 上传至指定目录
-		c.SaveUploadedFile(file, dst )
+		err := c.SaveUploadedFile(file, "/tmp/b.txt")
+		if err != nil {
+			fmt.Println(err)
+		}
+		c.String(http.StatusOK,fmt.Sprintf("'%s' uploaded!",file.Filename))
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
