@@ -7,6 +7,7 @@ import (
 	"github.com/zhangzw001/gin-example/ginBlog/pkg/e"
 	"github.com/zhangzw001/gin-example/ginBlog/pkg/setting"
 	"github.com/zhangzw001/gin-example/ginBlog/pkg/util"
+	"log"
 	"net/http"
 )
 
@@ -28,9 +29,12 @@ func GetTags(c *gin.Context) {
 	}
 
 	code := e.SUCCESS
-
-	data["lists"] = models.GetTags(util.GetPage(c), setting.PageSize, maps)
-	data["total"] = models.GetTagTotal(maps)
+	var err error
+	data["lists"],err  = models.GetTags(util.GetPage(c), setting.PageSize, maps)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//data["total"] = models.GetTagTotal(maps)
 
 	c.JSON(http.StatusOK, gin.H{
 		"code" : code,

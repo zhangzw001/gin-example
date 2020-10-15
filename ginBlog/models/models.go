@@ -46,6 +46,7 @@ func init() {
 		return tablePrefix + defaultTableName;
 	}
 
+
 	db.SingularTable(true)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
