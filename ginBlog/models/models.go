@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/zhangzw001/gin-example/ginBlog/pkg/setting"
 	"log"
@@ -34,9 +35,11 @@ func init() {
 	host = sec.Key("HOST").String()
 	tablePrefix = sec.Key("TABLE_PREFIX").String()
 
-	db, err := gorm.Open(dbType,fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local"),user,password,host,dbName)
+	fmt.Println(dbType,user,password,host,dbName)
+	dbconf := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",user,password,host,dbName)
+	db, err := gorm.Open(dbType, dbconf)
 	if err != nil {
-		log.Println(err )
+		log.Fatal(err)
 	}
 
 	gorm.DefaultTableNameHandler = func ( db *gorm.DB, defaultTableName string ) string {
