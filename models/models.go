@@ -36,14 +36,11 @@ func init() {
 	tablePrefix = sec.Key("TABLE_PREFIX").String()
 
 	fmt.Println(user,password,host,dbName,dbType)
-	//dbConf := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",user,password,host,dbName)
-	//log.Println(dbConf)
-	//log.Println(fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-	//	user,
-	//	password,
-	//	host,
-	//	dbName))
-	db, err := gorm.Open(dbType, "root:boqii.123@tcp(172.16.76.194:3316)/blog?charset=utf8&parseTime=True&loc=Local")
+	dbConf := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",user,password,host,dbName)
+	//db, err := gorm.Open(dbType,dbConf)
+	db, err = gorm.Open(dbType,dbConf)
+
+
 
 	////////////
 	//db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
